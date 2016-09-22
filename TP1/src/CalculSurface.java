@@ -44,7 +44,9 @@ public class CalculSurface {
 	}
 	
 	public int calcul(){
-		
+		/*
+		 * pour i allant de 0 à nbPoints
+		 */
 		
 		return 0;
 	}
