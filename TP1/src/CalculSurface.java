@@ -5,11 +5,15 @@ import java.io.InputStreamReader;
 
 
 public class CalculSurface {
+	
+	public static long l;
+	public static long h;
+	public static long nbPoints;
+	public static long[][] points;
 
 	public static void main(String[] args) {
 		
-		String chaine="";
-		String fichier ="./donneesPourTests/ex100_5980";
+		String fichier ="./donneesPourTests/ex500_7616";
 		
 		//lecture du fichier texte	
 		try{
@@ -17,8 +21,18 @@ public class CalculSurface {
 			InputStreamReader ipsr=new InputStreamReader(ips);
 			BufferedReader br=new BufferedReader(ipsr);
 			String ligne;
+			String[] dimensions;
+			ligne=br.readLine();
+			dimensions = ligne.split(" ");
+			l = Long.parseLong(dimensions[0]);
+			h = Long.parseLong(dimensions[1]);
+			
+			
+			ligne=br.readLine();
+			nbPoints = Long.parseLong(ligne);
+			
 			while ((ligne=br.readLine())!=null){
-				chaine+=ligne+"\n";
+				
 			}
 			br.close(); 
 		}		
@@ -26,8 +40,13 @@ public class CalculSurface {
 			System.out.println(e.toString());
 		}
 		
-		System.out.println(chaine);
 
+	}
+	
+	public int calcul(){
+		
+		
+		return 0;
 	}
 
 }
