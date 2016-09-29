@@ -14,8 +14,8 @@ public class CalculSurface {
 
 	public static void main(String[] args) {
 		
-		//String fichier ="./donneesPourTests/ex500_7616";
-		String fichier ="./donneesPourTests/ex10_24400144";
+		String fichier ="./donneesPourTests/ex500_7616";
+		//String fichier ="./donneesPourTests/ex100000_100000";
 		
 		//lecture du fichier texte	
 		try{
@@ -48,7 +48,14 @@ public class CalculSurface {
 			points[i][1] = 0;
 			//Arrays.sort(points);
 			
+			long debut = System.currentTimeMillis();
 			long res = calcul();
+			System.out.println("Temps calcul simple : "+(System.currentTimeMillis()-debut));
+			System.out.println(res);
+			
+			debut = System.currentTimeMillis();
+			res = calculDiviserPourRegner();
+			System.out.println("Temps diviser pour régner : "+(System.currentTimeMillis()-debut));
 			System.out.println(res);
 		}		
 		catch (Exception e){
@@ -58,6 +65,10 @@ public class CalculSurface {
 
 	}
 	
+	/**
+	 * Question 1
+	 * @return Surface Max
+	 */
 	public static long calcul(){
 		long surfaceMax = 0;
 		for (int i = 0; i < points.length; i++) {
@@ -80,6 +91,30 @@ public class CalculSurface {
 			}
 		}
 		return surfaceMax;
+	}
+	
+	/**
+	 * Question 2
+	 * @return Surface Max
+	 */
+	public static long calculDiviserPourRegner(){
+		long surfaceMax = 0;
+		
+		long hauteurMin = h;
+		int pointDeSeparation = 0;
+		
+		for (int i = 0; i < points.length; i++) {
+			if(points[i][1] != 0 && points[i][1] < hauteurMin){
+				hauteurMin = points[i][1];
+				pointDeSeparation = i;
+			}
+		}
+		
+		return surfaceMax;
+	}
+	
+	public static long calculRecursif(int pointDeSeparation, int idx){
+		return 0;
 	}
 
 }
