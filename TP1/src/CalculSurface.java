@@ -1,7 +1,9 @@
+import java.util.List;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 
@@ -11,9 +13,10 @@ public class CalculSurface {
 	public static long h;
 	public static long nbPoints;
 	public static long[][] points;
+	public static List<Point> listPoints;
 
 	public static void main(String[] args) {
-		
+		listPoints = new ArrayList<Point>();
 		String fichier ="./donneesPourTests/ex500_7616";
 		//String fichier ="./donneesPourTests/ex100000_100000";
 		
@@ -36,16 +39,25 @@ public class CalculSurface {
 			
 			points[0][0] = 0;
 			points[0][1] = 0;
+			
+			Point firstPoint = new Point(0, 0);
+			listPoints.add(firstPoint);
+			
 			int i = 1;
 			while ((ligne=br.readLine())!=null){
 				String[] coords = ligne.split(" ");
 				points[i][0] = Long.parseLong(coords[0]);
 				points[i][1] = Long.parseLong(coords[1]);
+				Point currentPointParsed = new Point(Long.parseLong(coords[0]), Long.parseLong(coords[1]));
+				listPoints.add(currentPointParsed);
 				i++;
 			}
 			br.close();
 			points[i][0] = l;
 			points[i][1] = 0;
+			Point lastPoint = new Point(l, 0);
+			listPoints.add(lastPoint);
+			
 			//Arrays.sort(points);
 			
 			long debut = System.currentTimeMillis();
@@ -98,23 +110,43 @@ public class CalculSurface {
 	 * @return Surface Max
 	 */
 	public static long calculDiviserPourRegner(){
-		long surfaceMax = 0;
-		
-		long hauteurMin = h;
-		int pointDeSeparation = 0;
-		
-		for (int i = 0; i < points.length; i++) {
-			if(points[i][1] != 0 && points[i][1] < hauteurMin){
-				hauteurMin = points[i][1];
-				pointDeSeparation = i;
-			}
-		}
-		
-		return surfaceMax;
+		Point lastPoint = new Point(0, 0);
+		lastPoint = listPoints.get(listPoints.size() - 1);
+		return calculRecursif(listPoints, 0, lastPoint.getX());
 	}
 	
-	public static long calculRecursif(int pointDeSeparation, int idx){
-		return 0;
+	public static long calculRecursif(List<Point> newPoints, long indexGauche, long indexDroite){
+		List<Point> partieGauche = new ArrayList<Point>();
+		List<Point> partieDroite = new ArrayList<Point>();
+		
+		if (indexDroite - indexGauche > 0 && !newPoints.isEmpty()){
+			
+			long hauteurMin = h;
+			int pointDeSeparation = 0;
+			
+			for (int i = 0; i < newPoints.size(); i++) {
+				if(newPoints.get(i).getY() != 0 & newPoints.get(i).getY() < hauteurMin){
+					hauteurMin = newPoints.get(i).getY();
+					pointDeSeparation = i;
+				}
+			}
+			
+			long surface = (indexDroite - indexGauche) * hauteurMin;
+			
+			if (pointDeSeparation > 0){
+				partieGauche = newPoints.subList(0, pointDeSeparation);
+			}
+			
+			if (pointDeSeparation < newPoints.size()){
+				partieDroite = newPoints.subList(pointDeSeparation + 1, newPoints.size());
+			}
+			
+			long newSurface = Long.max(calculRecursif(partieGauche, indexGauche, newPoints.get(pointDeSeparation).getX()),
+					calculRecursif(partieDroite, newPoints.get(pointDeSeparation).getX(), indexDroite));
+			return Long.max(surface, newSurface);
+		}
+		else
+			return 0;
 	}
 
 }
