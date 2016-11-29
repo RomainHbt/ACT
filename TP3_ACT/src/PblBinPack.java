@@ -8,9 +8,11 @@ public class PblBinPack extends PblDec{
 	protected Certificat certificat;
 	
 	public PblBinPack(int nbObjets, int[] poids, int nbSacs, int poidsSacs) {
+		// Instanciation des listes d'objets et de sacs
 		this.objets = new ArrayList<Objet>();
 		this.sacs = new ArrayList<Sac>();
 		
+		// Ajout des objets et des sacs
 		for(int i = 0; i < nbObjets; i++)
 			objets.add(new Objet(poids[i]));
 		for(int i = 0; i < nbSacs; i++)
@@ -19,16 +21,30 @@ public class PblBinPack extends PblDec{
 
 	@Override
 	public boolean aUneSolution() {
-		// TODO Auto-generated method stub
-		return false;
+		if (this.certificat == null)
+			this.certificat = new CertificatBinPack(this);
+		while (!this.certificat.estDernier()){
+			// Tant qu'il reste des certificats � v�rifier
+			if (this.certificat.estCorrect()){
+				// Si un des certificats est correct, on renvoie vraie
+				return true;
+			}
+			else {
+				// Sinon on passe au suivant
+				this.certificat.suivant();
+			}
+		}
+		// Cas du tout dernier certificat
+		return this.certificat.estCorrect();
 	}
 	
-	//Algo non déterministe
-	//si il y a une solution, au moins une exécution doit retourner Vrai
-	// sinon, toutes les exécutions doivent retourner Faux
+	//Algo non deterministe
+	//si il y a une solution, au moins une execution doit retourner Vrai
+	// sinon, toutes les executions doivent retourner Faux
 	public boolean aUneSolutionNonDeterministe() {
-		return false;
-		//génère alétaoirement un certificat et vérifie si il est correct ..
+		this.certificat = new CertificatBinPack(this);
+		this.certificat.alea();
+		return this.certificat.estCorrect();
 	}
 
 }
