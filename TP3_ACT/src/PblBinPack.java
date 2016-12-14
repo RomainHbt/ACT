@@ -50,5 +50,34 @@ public class PblBinPack extends PblDec{
 		this.certificat.alea();
 		return this.certificat.estCorrect();
 	}
+	
+	@Override
+    public String toString() {
+		System.out.println(this.sacs.get(0).getObjets().size());
+        String res = "";
+        int i = 1;
+        for (Sac sac : this.sacs) {
+            res += "Sac "+i+" (capacité "+sac.capacite+") : ";
+            for (Objet o : sac.getObjets()) {
+                res += o.poids+", ";
+            }
+            res += "\n"; i++;
+        }
+        return res;
+    }
+	
+	public void viderSacs(){
+		for (Sac sac : this.sacs){
+			sac.vider();
+		}
+	}
+	
+	public List<Objet> getObjets(){
+		return this.objets;
+	}
+	
+	public List<Sac> getSacs(){
+		return this.sacs;
+	}
 
 }

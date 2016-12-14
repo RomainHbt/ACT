@@ -23,6 +23,10 @@ public class Sac {
 		this.objets.add(objet);
 	}
 	
+	public void vider(){
+		this.objets.clear();
+	}
+	
 	public int getPoidsTotal(){
 		int poidsTotal = 0;
 		for (Objet objet : this.objets){

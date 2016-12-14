@@ -23,29 +23,3 @@ Q3.1) k^n
 Q3.2) /
 
 Q3.3) /
-
-## 2 - Réductions polynomiales
-
-### Une première réduction très simple
-
-Q5) Le problème *Partition* peut être réduit en problème *BinPack* car on pourrait utiliser 2 sacs de taille : Somme(xi)/2
-
-Q5.2) On sait que :
-
-* Un problème NP-Dur est forcément un problème NP
-* Partition est NP-Dur (car NP-Complète)
-* Partition est réduit en BinPack
-
-Or si une propriété NP-Dur se réduit en une autre propriété, cette dernière est aussi NP-Dur.
-
-Donc BinPack est NP-Dur.
-
-Q5.3) Oui, car Partition est NP-Complete
-
-### Une réduction un peu moins évidente
-
-Q6) Partition est un cas particulier de Sum. C = Somme(xi)/2
-
-### Composition de réductions
-
-Q8) Tout d'abord on réduit Sum en Partition, puis en BinPack.
