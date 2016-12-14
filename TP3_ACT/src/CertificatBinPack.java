@@ -15,7 +15,6 @@ public class CertificatBinPack implements Certificat {
 		this.repartition = new int[this.nbObjets];
 	}
 	
-	@Override
 	public boolean estCorrect() {
 		for (Sac sac : this.pb.sacs){
 			if (sac.estSurcharge())
@@ -24,7 +23,6 @@ public class CertificatBinPack implements Certificat {
 		return true;
 	}
 
-	@Override
 	public void suivant() {
 		int lastIndex = this.nbSacs - 1;
 		for (int i = this.repartition.length; i >= 0; i--){
@@ -37,7 +35,6 @@ public class CertificatBinPack implements Certificat {
 		}
 	}
 
-	@Override
 	public boolean estDernier() {
 		int lastIndex = this.nbSacs - 1;
 		for (int i = this.repartition.length; i >= 0; i--){
@@ -47,14 +44,12 @@ public class CertificatBinPack implements Certificat {
 		return true;
 	}
 
-	@Override
 	public void alea() {
 		Random random = new Random();
 		for (int i = 0; i < this.nbObjets; i++)
 			this.repartition[i] = random.nextInt(this.nbSacs);
 	}
 
-	@Override
 	public void affiche() {
 		System.out.println(this.pb);
 	}
