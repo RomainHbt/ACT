@@ -18,6 +18,10 @@ public class PblBinPack extends PblDec{
 		for(int i = 0; i < nbSacs; i++)
 			this.sacs.add(new Sac(poidsSacs));
 	}
+	
+	public Certificat getCertificat(){
+		return this.certificat;
+	}
 
 	@Override
 	public boolean aUneSolution() {

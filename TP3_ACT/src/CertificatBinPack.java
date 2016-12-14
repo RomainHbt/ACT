@@ -37,7 +37,7 @@ public class CertificatBinPack implements Certificat {
 
 	public boolean estDernier() {
 		int lastIndex = this.nbSacs - 1;
-		for (int i = this.repartition.length; i >= 0; i--){
+		for (int i = this.repartition.length - 1; i >= 0; i--){
 			if (this.repartition[i] != lastIndex)
 				return false;
 		}
